@@ -1,0 +1,8 @@
+---
+language: dlang
+include_files:
+  - bin/detect
+  - bin/compile
+  - bin/release
+  - config.yml
+  - resources/dmd.2.112.0.linux.tar.xz
