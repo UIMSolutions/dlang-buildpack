@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+BUILDPACK_DIR=$(dirname "$(cd "$(dirname "$0")" && pwd)")
+
+echo "-----> Starte Dlang Buildpack Staging"
+
+# 1. Compiler-Verzeichnis im App-Workspace vorbereiten
+mkdir -p "$BUILD_DIR/.dlang"
+
+# 2. Vorkompilierten Compiler entpacken (aus dem Buildpack-Ordner extrahiert)
+echo "-----> Installiere DMD Compiler..."
+tar -xJf "$BUILDPACK_DIR/resources/dmd-2.105.0-linux-x86_64.tar.xz" -C "$BUILD_DIR/.dlang" --strip-components=1
+
+# 3. Pfade für die Kompilierung setzen
+export PATH="$BUILD_DIR/.dlang/linux/bin64:$PATH"
+
+# 4. Abhängigkeiten via Dub auflösen und App kompilieren
+cd "$BUILD_DIR"
+echo "-----> Kompiliere Anwendung via Dub..."
+# --compiler=dmd erzwingt den lokalen Compiler; --build=release optimiert die Binärdatei
+dub build --compiler=dmd --build=release
+
+echo "-----> Kompilierung erfolgreich abgeschlossen."

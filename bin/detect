@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Exit-Code 0 bedeutet: Buildpack fühlt sich zuständig
+
+if [ -f "$1/dub.json" ] || [ -f "$1/dub.sdl" ]; then
+  echo "Dlang (Dub-Projekt) erkannt"
+  exit 0
+fi
+
+exit 1

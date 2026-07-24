@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Bestimmt den Startbefehl. "meine-app" entspricht dem Namen der via Dub erzeugten Binärdatei.
+cat <<EOF
+default_process_types:
+  web: ./meine-app
+EOF
