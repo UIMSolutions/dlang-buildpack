@@ -20,7 +20,12 @@ export PATH="$BUILD_DIR/.dlang/linux/bin64:$PATH"
 # 4. Abhängigkeiten via Dub auflösen und App kompilieren
 cd "$BUILD_DIR"
 echo "-----> Kompiliere Anwendung via Dub..."
-# --compiler=dmd erzwingt den lokalen Compiler; --build=release optimiert die Binärdatei
-dub build --compiler=dmd --build=release
+
+# Vorher:
+dub build --compiler=dmd --build=release --skip-registry --compiler-flags="-lowmem -vcolumns"
+
+# Nachher (Wechsel auf Debug + maximale Spar-Flags):
+# dub build --compiler=dmd --build=debug --skip-registry --compiler-flags="-lowmem -g- -O0"
+
 
 echo "-----> Kompilierung erfolgreich abgeschlossen."
