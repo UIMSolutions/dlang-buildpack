@@ -22,10 +22,9 @@ cd "$BUILD_DIR"
 echo "-----> Kompiliere Anwendung via Dub..."
 
 # Vorher:
-dub build --compiler=dmd --build=release --skip-registry --compiler-flags="-lowmem -vcolumns"
+# dub build --compiler=dmd --build=release --skip-registry --compiler-flags="-lowmem -vcolumns"
 
 # Nachher (Wechsel auf Debug + maximale Spar-Flags):
-# dub build --compiler=dmd --build=debug --skip-registry --compiler-flags="-lowmem -g- -O0"
-
+dub build --compiler=dmd --build=debug --skip-registry --compiler-flags="-lowmem -g- -O0"
 
 echo "-----> Kompilierung erfolgreich abgeschlossen."
